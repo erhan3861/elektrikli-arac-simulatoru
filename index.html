@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>EV Lab · Elektrikli Araç Simülatörü</title>
+<meta name="description" content="Elektrik meslek lisesi için 3B elektrikli araç dersi ve simülatörü">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.165.0/build/three.module.js",
+    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.165.0/examples/jsm/"
+  }
+}
+</script>
+</head>
+<body>
+
+<div id="scene"></div>
+<div id="labels"></div>
+
+<!-- Üst şerit: marka + görünüm araçları -->
+<header id="hud">
+  <div class="brand"><span class="dot"></span>EV Lab</div>
+  <div class="tools">
+    <button class="tool active" id="t-ghost" data-tip="Hayalet gövde">
+      <svg viewBox="0 0 24 24"><path d="M3 13l2-5h14l2 5v4H3z"/><path d="M7 17v2M17 17v2M3 13h18"/></svg>
+    </button>
+    <button class="tool" id="t-lift" data-tip="Kaportayı kaldır">
+      <svg viewBox="0 0 24 24"><path d="M12 4v10"/><path d="M8 8l4-4 4 4"/><path d="M4 18h16"/></svg>
+    </button>
+    <button class="tool" id="t-explode" data-tip="Parçaları ayır">
+      <svg viewBox="0 0 24 24"><rect x="4" y="4" width="6" height="6" rx="1.5"/><rect x="14" y="4" width="6" height="6" rx="1.5"/><rect x="4" y="14" width="6" height="6" rx="1.5"/><rect x="14" y="14" width="6" height="6" rx="1.5"/></svg>
+    </button>
+    <button class="tool active" id="t-labels" data-tip="Etiketler">
+      <svg viewBox="0 0 24 24"><path d="M4 7h10l4 5-4 5H4z"/></svg>
+    </button>
+    <span class="sep"></span>
+    <button class="tool" id="t-help" data-tip="Nasıl kullanılır">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.7.4-1 1-1 1.7"/><path d="M12 17h.01"/></svg>
+    </button>
+  </div>
+</header>
+
+<!-- Parça kartı -->
+<aside id="card" class="hidden">
+  <button class="x" id="card-x" aria-label="Kapat">×</button>
+  <span class="tag" id="c-group">Grup</span>
+  <h2 id="c-name">Parça</h2>
+  <p id="c-desc"></p>
+  <div class="stats">
+    <div><small id="c-k1"></small><b id="c-v1"></b></div>
+    <div><small id="c-k2"></small><b id="c-v2"></b></div>
+  </div>
+  <div class="safe" id="c-safe"></div>
+  <button class="speak" id="c-speak">Sesli oku</button>
+</aside>
+
+<!-- Alt çubuk: bağlam + mod sekmeleri -->
+<div id="bar">
+  <div id="ctx"></div>
+  <nav id="tabs">
+    <button data-mode="explore" class="active">Keşfet</button>
+    <button data-mode="lesson">Ders</button>
+    <button data-mode="flow">Güç Akışı</button>
+    <button data-mode="measure">Ölçüm</button>
+    <button data-mode="fault">Arıza</button>
+    <button data-mode="quiz">Test</button>
+  </nav>
+</div>
+
+<div id="toast"></div>
+
+<!-- Giriş -->
+<div id="intro">
+  <div class="panel">
+    <div class="brand big"><span class="dot"></span>EV Lab</div>
+    <h1>Elektrikli araç, içten dışa.</h1>
+    <p>Döndür, parçaya dokun, ölç, arızayı bul.</p>
+    <ul>
+      <li><b>Keşfet</b> parçaları tanı</li>
+      <li><b>Ders</b> 10 adımda güç akışı</li>
+      <li><b>Ölçüm</b> sanal avometre</li>
+    </ul>
+    <button id="start">Başla</button>
+    <small>Elektrik-Elektronik Teknolojisi · Meslek Lisesi</small>
+  </div>
+</div>
+
+<script type="module" src="app.js"></script>
+</body>
+</html>
